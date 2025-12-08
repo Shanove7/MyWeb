@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shanove Portfolio & Xyon Bot</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&family=Fira+Code:wght@400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <nav class="navbar">
+        <div class="logo">SHANOVE<span>.DEV</span></div>
+        <div class="hamburger" onclick="toggleMenu()">
+            <i class="fas fa-bars"></i>
+        </div>
+        <ul class="nav-links">
+            <li><a href="#" onclick="showPage('info')" class="active-link" id="nav-info">Info Saya</a></li>
+            <li><a href="#" onclick="showPage('sewabot')" id="nav-sewabot">Sewa Bot</a></li>
+            <li><a href="#" onclick="showPage('chatai')" id="nav-chatai">Chat Xyon</a></li>
+            <li><a href="#" onclick="showPage('donasi')" id="nav-donasi">Donasi</a></li>
+            <li><a href="#" onclick="showPage('contact')" id="nav-contact">Contact Me</a></li>
+        </ul>
+    </nav>
+
+    <section id="info" class="page-section active">
+        <div class="hero-content">
+            <div class="badge">WELCOME TO MY WORLD</div>
+            <h1>Hi, I'm <span class="neon-text">Leo</span></h1>
+            <h3>Creator of <span class="cute-text">Xyon Bot</span></h3>
+            <p>Saya seorang developer yang hobi bikin bot WhatsApp, website keren, dan hal-hal otomatis lainnya. Jelajahi web ini untuk sewa bot atau ngobrol sama AI buatanku!</p>
+            <div class="hero-btns">
+                <button onclick="showPage('chatai')" class="btn primary-btn">Ngobrol sama Xyon <i class="fas fa-robot"></i></button>
+                <button onclick="showPage('sewabot')" class="btn secondary-btn">Lihat Sewa Bot <i class="fas fa-arrow-right"></i></button>
+            </div>
+        </div>
+    </section>
+
+    <section id="sewabot" class="page-section hidden">
+        <div class="container">
+            <h2 class="section-title">👑 Layanan Sewa Bot</h2>
+            <p class="subtitle">Pilih paket terbaik untuk grup WhatsApp kamu</p>
+            
+            <div class="pricing-grid">
+                <div class="price-card bronze">
+                    <div class="badge-price">BRONZE</div>
+                    <h3>Rp 15.000</h3>
+                    <span class="duration">30 Hari</span>
+                    <ul class="features">
+                        <li>✅ Sewa 1 Grup</li>
+                        <li>✅ Fitur Standar</li>
+                        <li>✅ Perintah .sewa 1</li>
+                    </ul>
+                    <button onclick="orderBot('Bronze', 15000)" class="btn-price">Pilih Bronze</button>
+                </div>
+
+                <div class="price-card silver popular">
+                    <div class="badge-best">BEST VALUE</div>
+                    <div class="badge-price">SILVER</div>
+                    <h3>Rp 25.000</h3>
+                    <span class="duration">60 Hari</span>
+                    <ul class="features">
+                        <li>✅ Hemat Rp 5.000!</li>
+                        <li>✅ Fitur Lengkap</li>
+                        <li>✅ Perintah .sewa 2</li>
+                    </ul>
+                    <button onclick="orderBot('Silver', 25000)" class="btn-price">Pilih Silver</button>
+                </div>
+
+                <div class="price-card gold">
+                    <div class="badge-best">PALING HEMAT</div>
+                    <div class="badge-price">GOLD</div>
+                    <h3>Rp 35.000</h3>
+                    <span class="duration">90 Hari</span>
+                    <ul class="features">
+                        <li>✅ Hemat Rp 10.000!</li>
+                        <li>✅ Prioritas Support</li>
+                        <li>✅ Perintah .sewa 3</li>
+                    </ul>
+                    <button onclick="orderBot('Gold', 35000)" class="btn-price">Pilih Gold</button>
+                </div>
+            </div>
+            <p class="note-text">💡 Tips: Paket Silver & Gold jauh lebih hemat untuk jangka panjang!</p>
+        </div>
+    </section>
+
+    <section id="chatai" class="page-section hidden">
+        <div class="chat-container">
+            <div class="chat-header">
+                <div class="avatar">
+                    <i class="fas fa-robot"></i>
+                </div>
+                <div class="status">
+                    <h3>Xyon Bot 🤖</h3>
+                    <span class="online-dot"></span> Online (Llama 3.3 70B)
+                </div>
+            </div>
+            
+            <div class="chat-box" id="chatBox">
+                <div class="message bot-msg">
+                    <div class="msg-bubble">
+                        Haiii kak! Aku Xyon Bot buatan Shanove 😸✨. Mau nanya apa nih? Atau mau minta kodingan? Xyon siap bantu!
+                    </div>
+                </div>
+            </div>
+
+            <div class="chat-input-area">
+                <input type="text" id="userInput" placeholder="Ketik pesan buat Xyon..." autocomplete="off">
+                <button id="sendBtn"><i class="fas fa-paper-plane"></i></button>
+            </div>
+        </div>
+    </section>
+
+    <section id="donasi" class="page-section hidden">
+        <div class="container">
+            <h2 class="section-title">💳 Metode Pembayaran & Donasi</h2>
+            <div class="payment-grid">
+                <div class="pay-card dana">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/7/72/Logo_dana_blue.svg" alt="DANA" class="pay-logo">
+                    <h3>DANA</h3>
+                    <p class="copy-text" onclick="copyText('085185032092')">0851-8503-2092 <i class="fas fa-copy"></i></p>
+                </div>
+                <div class="pay-card gopay">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/8/86/Gopay_logo.svg" alt="GOPAY" class="pay-logo">
+                    <h3>GOPAY</h3>
+                    <p class="copy-text" onclick="copyText('085182128985')">0851-8212-8985 <i class="fas fa-copy"></i></p>
+                </div>
+                <div class="pay-card xl">
+                    <i class="fas fa-mobile-alt big-icon"></i>
+                    <h3>PULSA (XL)</h3>
+                    <p class="copy-text" onclick="copyText('087767510608')">0877-6751-0608 <i class="fas fa-copy"></i></p>
+                </div>
+            </div>
+            <div class="confirm-box">
+                <h3>📲 Konfirmasi Pembayaran</h3>
+                <p>Sudah transfer? Jangan lupa kirim bukti ke Owner ya!</p>
+                <a href="https://wa.me/6285185032092" target="_blank" class="btn btn-wa"><i class="fab fa-whatsapp"></i> Chat Owner</a>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact" class="page-section hidden">
+        <div class="container">
+            <h2 class="section-title">Hubungi Saya</h2>
+            <div class="contact-card">
+                <div class="social-links">
+                    <a href="https://wa.me/6285185032092" class="soc-item wa"><i class="fab fa-whatsapp"></i> WhatsApp</a>
+                    <a href="https://instagram.com/shnvnkonv_" class="soc-item ig"><i class="fab fa-instagram"></i> Instagram</a>
+                    <a href="#" class="soc-item gh"><i class="fab fa-github"></i> Github</a>
+                </div>
+                <form class="simple-form">
+                    <input type="text" placeholder="Nama Kamu">
+                    <input type="email" placeholder="Email Kamu">
+                    <textarea placeholder="Pesan untuk Leo / Shanove..."></textarea>
+                    <button type="button" class="btn primary-btn">Kirim Pesan</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <script src="script.js"></script>
+</body>
+</html>
