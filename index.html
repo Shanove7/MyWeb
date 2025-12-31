@@ -1,15 +1,15 @@
 <!DOCTYPE html>
-<html lang="id">
+<html lang="id" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Xyon AIO | Created by Kasan</title>
+    <title>X-SNZ Community | IG Downloader</title>
     
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     
-    <!-- Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Fonts: Inter for Clean Minimalist Look -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     
     <!-- AOS Animation -->
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
@@ -17,294 +17,319 @@
     <!-- Phosphor Icons -->
     <script src="https://unpkg.com/@phosphor-icons/web"></script>
 
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: { sans: ['Inter', 'sans-serif'] },
+                    colors: {
+                        dark: '#050505',
+                        glass: 'rgba(255, 255, 255, 0.03)',
+                        accent: '#8b5cf6', // Violet
+                    },
+                    animation: {
+                        'float': 'float 6s ease-in-out infinite',
+                    },
+                    keyframes: {
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-20px)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
     <style>
-        body {
-            font-family: 'Plus Jakarta Sans', sans-serif;
-            background-color: #191919;
-            color: #ffffff;
-            overflow-x: hidden;
-        }
-        ::-webkit-scrollbar { width: 6px; }
-        ::-webkit-scrollbar-track { background: #191919; }
-        ::-webkit-scrollbar-thumb { background: #333; border-radius: 4px; }
+        body { background-color: #050505; color: #e5e5e5; }
         
-        .glass {
-            background: rgba(255, 255, 255, 0.03);
-            backdrop-filter: blur(16px);
+        /* Minimalist Glass */
+        .glass-panel {
+            background: rgba(20, 20, 20, 0.4);
+            backdrop-filter: blur(24px);
+            -webkit-backdrop-filter: blur(24px);
             border: 1px solid rgba(255, 255, 255, 0.05);
-            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
-        }
-        
-        .text-gradient {
-            background: linear-gradient(135deg, #FFD700 0%, #FDB931 50%, #d4af37 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-        .btn-gradient {
-            background: linear-gradient(135deg, #FFD700 0%, #FDB931 100%);
         }
 
-        .loader {
-            width: 20px;
-            height: 20px;
-            border: 2px solid #000;
-            border-bottom-color: transparent;
-            border-radius: 50%;
-            display: inline-block;
-            animation: rotation 1s linear infinite;
+        .input-ring:focus-within {
+            box-shadow: 0 0 0 2px rgba(139, 92, 246, 0.3);
+            border-color: rgba(139, 92, 246, 0.5);
         }
-        @keyframes rotation { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+
+        /* Loading Spinner */
+        .spinner {
+            width: 20px; height: 20px;
+            border: 2px solid rgba(255,255,255,0.1);
+            border-left-color: #8b5cf6;
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+        }
+        @keyframes spin { 100% { transform: rotate(360deg); } }
     </style>
 </head>
-<body class="antialiased selection:bg-yellow-500 selection:text-black">
+<body class="antialiased selection:bg-violet-500/30 selection:text-violet-200">
 
-    <!-- Navbar -->
-    <nav class="fixed w-full z-50 top-0 bg-[#191919]/90 backdrop-blur-md border-b border-white/5">
-        <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
-            <a href="#" class="text-2xl font-bold tracking-tight flex items-center gap-2 group">
-                <i class="ph-fill ph-planet text-yellow-500 text-3xl group-hover:rotate-180 transition duration-500"></i>
-                <span>Xyon<span class="font-light text-gray-500">.AIO</span></span>
+    <!-- Navbar Minimalis -->
+    <nav class="fixed w-full z-50 top-0 transition-all duration-300 bg-[#050505]/80 backdrop-blur-md border-b border-white/5">
+        <div class="max-w-6xl mx-auto px-6 h-20 flex justify-between items-center">
+            <!-- Brand -->
+            <a href="#" class="flex items-center gap-3 group">
+                <div class="w-8 h-8 rounded-lg bg-violet-600 flex items-center justify-center text-white font-bold text-sm shadow-[0_0_15px_rgba(139,92,246,0.5)]">
+                    X
+                </div>
+                <span class="font-semibold text-lg tracking-tight group-hover:text-violet-400 transition">
+                    X-SNZ <span class="text-white/40 font-light">Community</span>
+                </span>
             </a>
-            
-            <div class="flex items-center gap-4">
-                <a href="https://github.com/Shanove7" target="_blank" class="text-sm font-medium text-gray-400 hover:text-white flex items-center gap-2 transition bg-white/5 px-4 py-2 rounded-full border border-white/5 hover:border-white/20">
-                    <i class="ph-fill ph-github-logo text-lg"></i>
-                    <span class="hidden md:inline">Shanove7</span>
+
+            <!-- Social Links -->
+            <div class="flex items-center gap-3 md:gap-4">
+                <!-- WA Channel Button (Highlight) -->
+                <a href="https://whatsapp.com/channel/0029Vb6L0rM5Ejy7aYco3p1l" target="_blank" class="hidden md:flex items-center gap-2 px-3 py-1.5 rounded-full bg-[#25D366]/10 text-[#25D366] text-xs font-medium border border-[#25D366]/20 hover:bg-[#25D366]/20 transition" title="Join Channel">
+                    <i class="ph-fill ph-chats-circle text-base"></i>
+                    <span>Join Channel</span>
+                </a>
+
+                <!-- Icons Mobile/Desktop -->
+                <a href="https://whatsapp.com/channel/0029Vb6L0rM5Ejy7aYco3p1l" target="_blank" class="md:hidden text-white/40 hover:text-[#25D366] transition">
+                    <i class="ph-fill ph-chats-circle text-xl"></i>
+                </a>
+
+                <div class="w-px h-4 bg-white/10 mx-1"></div>
+
+                <a href="https://github.com/Shanove7" target="_blank" class="text-white/40 hover:text-white transition" title="Github Shanove7">
+                    <i class="ph-fill ph-github-logo text-xl"></i>
+                </a>
+                <a href="https://wa.me/6285185032092" target="_blank" class="text-white/40 hover:text-red-400 transition" title="Lapor Error">
+                    <i class="ph-fill ph-warning-circle text-xl"></i>
                 </a>
             </div>
         </div>
     </nav>
 
-    <!-- Main Section -->
-    <section class="min-h-screen pt-24 pb-12 px-6 flex flex-col items-center justify-center relative overflow-hidden">
+    <!-- Main Content -->
+    <main class="relative min-h-screen flex flex-col justify-center items-center px-6 pt-24 pb-12 overflow-hidden">
         
-        <!-- Background Effects -->
-        <div class="absolute top-0 right-0 w-[500px] h-[500px] bg-yellow-600/10 rounded-full blur-[150px] pointer-events-none"></div>
-        <div class="absolute bottom-0 left-0 w-[500px] h-[500px] bg-purple-600/10 rounded-full blur-[150px] pointer-events-none"></div>
+        <!-- Abstract Glow Background -->
+        <div class="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[600px] bg-violet-600/10 rounded-full blur-[120px] pointer-events-none animate-float"></div>
 
-        <div class="text-center max-w-3xl z-10" data-aos="fade-up">
-            <!-- Credits Badge -->
-            <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-yellow-500/20 bg-yellow-500/5 text-[10px] font-bold text-yellow-500 uppercase tracking-widest mb-4">
-                <span class="w-2 h-2 rounded-full bg-yellow-500 animate-pulse"></span>
-                System by Kasan
+        <!-- Hero Section -->
+        <div class="relative z-10 w-full max-w-2xl mx-auto text-center" data-aos="fade-up">
+            <div class="inline-flex items-center gap-2 px-3 py-1 mb-6 rounded-full border border-white/5 bg-white/5 text-[10px] uppercase tracking-[0.2em] text-white/60">
+                <span class="w-1.5 h-1.5 rounded-full bg-green-500 animate-pulse"></span>
+                System Online
             </div>
-
-            <h1 class="text-5xl md:text-7xl font-bold mb-6 leading-tight">
-                All-in-One <br>
-                <span class="text-gradient">Video Downloader</span>
-            </h1>
             
-            <!-- Rules & Limit Info -->
-            <div class="flex flex-wrap justify-center gap-3 mb-8 text-xs font-mono text-gray-400">
-                <span class="bg-black/40 px-3 py-1 rounded border border-white/10 flex items-center gap-2">
-                    <i class="ph-fill ph-timer text-red-400"></i> Delay: 1 Detik
-                </span>
-                <span class="bg-black/40 px-3 py-1 rounded border border-white/10 flex items-center gap-2">
-                    <i class="ph-fill ph-warning-octagon text-orange-400"></i> Limit: 100/Jam
-                </span>
-                <span class="bg-black/40 px-3 py-1 rounded border border-white/10 flex items-center gap-2">
-                    <i class="ph-fill ph-check-circle text-green-400"></i> Status: Online
-                </span>
-            </div>
-        </div>
+            <h1 class="text-4xl md:text-6xl font-bold tracking-tight mb-4 text-transparent bg-clip-text bg-gradient-to-b from-white to-white/40">
+                Instagram Downloader
+            </h1>
+            <p class="text-white/40 text-sm md:text-base max-w-md mx-auto mb-10 leading-relaxed">
+                Download Reels, Stories, & Post dengan kualitas orisinal. Alat bantu gratis dari komunitas X-SNZ.
+            </p>
 
-        <!-- Input Section -->
-        <div class="w-full max-w-2xl z-10" data-aos="fade-up" data-aos-delay="100">
-            <div class="glass p-2 rounded-2xl flex flex-col md:flex-row items-center shadow-2xl gap-2 transition-all focus-within:ring-1 focus-within:ring-yellow-500/50">
-                <div class="w-full flex items-center px-4">
-                    <i class="ph ph-link text-gray-500 text-xl mr-3"></i>
+            <!-- Input Area -->
+            <div class="glass-panel p-2 rounded-2xl flex flex-col sm:flex-row items-center gap-2 transition-all duration-300 input-ring group">
+                <div class="w-full flex items-center px-4 py-2">
+                    <i class="ph ph-link text-white/30 text-xl mr-3 group-focus-within:text-violet-400 transition"></i>
                     <input type="text" id="urlInput" 
-                        class="w-full bg-transparent border-none text-white py-4 text-base outline-none placeholder-gray-600 font-light" 
-                        placeholder="Tempel link IG, TikTok, YouTube, FB..." autocomplete="off">
+                        class="w-full bg-transparent border-none text-white text-sm focus:outline-none placeholder-white/20 font-light"
+                        placeholder="Paste link https://instagram.com/..." autocomplete="off">
                 </div>
-                <button onclick="fetchVideo()" id="downloadBtn" 
-                    class="w-full md:w-auto btn-gradient text-black px-8 py-4 rounded-xl font-bold transition-transform hover:scale-105 hover:shadow-lg flex items-center justify-center gap-2 whitespace-nowrap">
-                    <span>Proses</span>
-                    <i class="ph-bold ph-arrow-right"></i>
+                <button onclick="fetchData()" id="btnAction" class="w-full sm:w-auto h-12 px-8 rounded-xl bg-violet-600 hover:bg-violet-500 text-white font-medium text-sm transition-all duration-300 shadow-lg shadow-violet-600/20 flex items-center justify-center gap-2 whitespace-nowrap">
+                    Download
                 </button>
             </div>
+
+            <!-- Status Message -->
+            <div id="statusArea" class="mt-6 h-6 flex justify-center items-center gap-2 opacity-0 transition-opacity duration-300">
+                <span id="statusIcon"></span>
+                <span id="statusText" class="text-xs font-medium text-white/50"></span>
+            </div>
+        </div>
+
+        <!-- Result Container -->
+        <div id="resultSection" class="w-full max-w-4xl mt-16 hidden">
             
-            <!-- Status & Error Container -->
-            <div id="statusArea" class="mt-6 text-center hidden transition-all">
-                <p id="statusMsg" class="text-sm font-medium mb-2"></p>
-                <a href="https://wa.me/6285185032092?text=Halo%20Kasan,%20website%20Xyon%20error%20saat%20download%20link%20ini..." 
-                   target="_blank" 
-                   id="waBtn"
-                   class="inline-flex items-center gap-2 bg-[#25D366]/10 text-[#25D366] px-4 py-2 rounded-full text-xs hover:bg-[#25D366]/20 transition hidden">
-                    <i class="ph-fill ph-whatsapp-logo text-lg"></i>
-                    Hubungi Kasan (Lapor Error)
-                </a>
-            </div>
-        </div>
-
-        <!-- Result Card -->
-        <div id="resultContainer" class="hidden w-full max-w-3xl mt-12 z-10 animate-fade-in-up">
-            <div class="glass rounded-3xl overflow-hidden p-8 flex flex-col md:flex-row gap-8 items-start relative">
-                <!-- Branding Stamp -->
-                <div class="absolute top-0 right-0 bg-yellow-500 text-black text-[10px] font-bold px-3 py-1 rounded-bl-xl z-20">
-                    POWERED BY KASAN
-                </div>
-
-                <!-- Thumbnail -->
-                <div class="w-full md:w-5/12 aspect-square md:aspect-[4/5] bg-black/50 rounded-2xl overflow-hidden relative shadow-2xl border border-white/5">
-                    <img id="thumb" src="" class="w-full h-full object-cover">
-                </div>
-
-                <!-- Info -->
-                <div class="w-full md:w-7/12">
-                    <h3 class="text-2xl font-bold text-white mb-2 line-clamp-2" id="videoTitle">Video Found</h3>
-                    <p class="text-sm text-gray-400 mb-6">Siap diunduh. Gunakan dengan bijak.</p>
-                    
-                    <div class="space-y-3" id="downloadButtons">
-                        <!-- Buttons injected via JS -->
+            <!-- User Metadata Card -->
+            <div class="glass-panel p-6 rounded-2xl flex items-center gap-5 mb-8 animate-fade-in-up">
+                <div class="w-14 h-14 rounded-full bg-gradient-to-tr from-yellow-500 to-fuchsia-600 p-[2px] flex-shrink-0">
+                    <div class="w-full h-full rounded-full bg-[#0a0a0a] flex items-center justify-center overflow-hidden">
+                        <i class="ph-fill ph-user text-2xl text-white/20"></i>
                     </div>
-                    
-                    <button onclick="resetApp()" class="mt-6 text-sm text-gray-500 hover:text-white flex items-center gap-2 transition">
-                        <i class="ph ph-trash"></i> Reset
-                    </button>
+                </div>
+                <div class="flex-1 min-w-0">
+                    <h3 id="metaUsername" class="text-white font-medium text-lg truncate">@username</h3>
+                    <p id="metaCaption" class="text-white/40 text-xs line-clamp-1 truncate mt-0.5">Caption text...</p>
+                </div>
+                <div class="flex gap-4 text-xs text-white/40 font-mono hidden sm:flex">
+                    <span class="flex items-center gap-1.5 bg-white/5 px-2 py-1 rounded"><i class="ph-fill ph-heart text-red-500"></i> <span id="metaLikes">0</span></span>
+                    <span class="flex items-center gap-1.5 bg-white/5 px-2 py-1 rounded"><i class="ph-fill ph-chat-circle text-blue-400"></i> <span id="metaComments">0</span></span>
                 </div>
             </div>
+
+            <!-- Grid Media -->
+            <div id="mediaGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+                <!-- Cards will be injected here -->
+            </div>
+
+            <!-- Reset Button -->
+            <div class="mt-10 text-center">
+                <button onclick="resetUI()" class="text-xs text-white/30 hover:text-white transition flex items-center justify-center gap-2 mx-auto">
+                    <i class="ph ph-arrow-counter-clockwise"></i> Reset Pencarian
+                </button>
+            </div>
         </div>
-    </section>
+
+    </main>
 
     <!-- Footer -->
-    <footer class="py-12 px-6 text-center border-t border-white/5 bg-[#141414]">
-        <div class="flex flex-col items-center justify-center gap-2">
-            <p class="text-gray-400 text-sm">&copy; 2025 Xyon AIO. All rights reserved.</p>
-            <p class="text-gray-500 text-xs">
-                Dibuat sepenuhnya oleh <a href="https://github.com/Shanove7" target="_blank" class="text-yellow-500 hover:text-yellow-400 font-bold hover:underline">Kasan (Shanove7)</a>
+    <footer class="border-t border-white/5 bg-[#050505] py-8 mt-auto">
+        <div class="max-w-6xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-4">
+            <p class="text-xs text-white/30">
+                &copy; 2024 <span class="text-white/60 font-medium">X-SNZ Community</span>. All Rights Reserved.
             </p>
+            <div class="flex items-center gap-4 text-xs text-white/40">
+                <a href="https://whatsapp.com/channel/0029Vb6L0rM5Ejy7aYco3p1l" target="_blank" class="hover:text-[#25D366] transition flex items-center gap-1">
+                    <i class="ph-fill ph-chats-circle"></i> Join Channel
+                </a>
+                <span class="w-px h-3 bg-white/10"></span>
+                <a href="https://github.com/Shanove7" target="_blank" class="hover:text-white transition">GitHub</a>
+                <a href="https://wa.me/6285185032092" target="_blank" class="hover:text-red-400 transition">Lapor Error</a>
+            </div>
         </div>
     </footer>
 
     <!-- Scripts -->
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
-        AOS.init({ once: true, duration: 800 });
+        AOS.init({ once: true, duration: 800, offset: 50 });
 
-        // --- KONFIGURASI KASAN ---
-        const API_TOKEN = 'JpnZ9RAfUTSjdS1Vtssr77bn';
-        let lastRequestTime = 0;
+        // --- Logic X-SNZ ---
 
-        function resetApp() {
-            document.getElementById('resultContainer').classList.add('hidden');
-            document.getElementById('urlInput').value = '';
-            hideStatus();
-        }
+        const elements = {
+            input: document.getElementById('urlInput'),
+            btn: document.getElementById('btnAction'),
+            statusArea: document.getElementById('statusArea'),
+            statusText: document.getElementById('statusText'),
+            resultSection: document.getElementById('resultSection'),
+            mediaGrid: document.getElementById('mediaGrid'),
+            metaUsername: document.getElementById('metaUsername'),
+            metaCaption: document.getElementById('metaCaption'),
+            metaLikes: document.getElementById('metaLikes'),
+            metaComments: document.getElementById('metaComments')
+        };
 
-        function hideStatus() {
-            const area = document.getElementById('statusArea');
-            area.classList.add('hidden');
-            document.getElementById('waBtn').classList.add('hidden');
-        }
-
-        function showStatus(msg, type) {
-            const area = document.getElementById('statusArea');
-            const txt = document.getElementById('statusMsg');
-            const wa = document.getElementById('waBtn');
+        function setStatus(msg, type = 'neutral') {
+            elements.statusArea.style.opacity = '1';
+            elements.statusText.innerText = msg;
             
-            area.classList.remove('hidden');
-            txt.innerText = msg;
-
-            if(type === 'error') {
-                txt.className = "text-sm font-medium mb-2 text-red-500";
-                wa.classList.remove('hidden'); // Munculin tombol WA kalo error
-            } else if(type === 'success') {
-                txt.className = "text-sm font-medium mb-2 text-green-500";
-                wa.classList.add('hidden');
-            } else {
-                txt.className = "text-sm font-medium mb-2 text-yellow-500";
-                wa.classList.add('hidden');
-            }
+            if (type === 'error') elements.statusText.className = "text-xs font-medium text-red-400";
+            else if (type === 'success') elements.statusText.className = "text-xs font-medium text-green-400";
+            else elements.statusText.className = "text-xs font-medium text-white/50";
         }
 
-        async function fetchVideo() {
-            const url = document.getElementById('urlInput').value.trim();
-            const btn = document.getElementById('downloadBtn');
-            const now = Date.now();
+        function resetUI() {
+            elements.input.value = '';
+            elements.resultSection.classList.add('hidden');
+            elements.statusArea.style.opacity = '0';
+        }
 
-            // 1. Cek Input Kosong
-            if(!url) return showStatus('Link tidak boleh kosong!', 'error');
+        async function fetchData() {
+            const url = elements.input.value.trim();
 
-            // 2. Cek Rate Limit (1 detik)
-            if (now - lastRequestTime < 1000) {
-                return showStatus('Sabar bos! Tunggu 1 detik...', 'error');
+            if (!url) {
+                setStatus('Mohon masukkan URL Instagram yang valid.', 'error');
+                return;
             }
-            lastRequestTime = now;
 
-            // UI Loading
-            const oldBtn = btn.innerHTML;
-            btn.innerHTML = `<span class="loader"></span>`;
-            btn.disabled = true;
-            document.getElementById('resultContainer').classList.add('hidden');
-            showStatus('Menghubungkan ke Server Kasan...', 'normal');
+            // Loading State
+            const originalBtn = elements.btn.innerHTML;
+            elements.btn.innerHTML = `<div class="spinner"></div>`;
+            elements.btn.disabled = true;
+            elements.resultSection.classList.add('hidden');
+            setStatus('Sedang menghubungi server X-SNZ...', 'neutral');
 
             try {
-                // API Request
-                const apiUrl = `https://fastsaverapi.com/api/v1/getUrl?token=${API_TOKEN}&url=${encodeURIComponent(url)}`;
-                
-                const response = await fetch(apiUrl);
+                // Endpoint FAA
+                const response = await fetch(`https://api-faa.my.id/faa/igdl?url=${encodeURIComponent(url)}`);
                 const data = await response.json();
 
-                // Validasi Error API
-                if(!data || data.error) {
-                    throw new Error('Gagal mengambil data. Pastikan link publik atau kuota habis (100/jam).');
-                }
+                // Validasi
+                if (!data || !data.result) throw new Error('Konten tidak ditemukan / Akun Private.');
 
-                renderResult(data, url);
-                showStatus('Berhasil ditemukan!', 'success');
+                const result = data.result;
+                const urls = Array.isArray(result.url) ? result.url : [result.url];
+                const meta = result.metadata || {};
 
-            } catch(err) {
+                if (!urls.length) throw new Error('Media kosong.');
+
+                // Populate Metadata
+                elements.metaUsername.innerText = '@' + (meta.username || 'Unknown_User');
+                elements.metaCaption.innerText = meta.caption || 'No caption provided.';
+                elements.metaLikes.innerText = (meta.like || 0).toLocaleString();
+                elements.metaComments.innerText = (meta.comment || 0).toLocaleString();
+
+                // Clear & Populate Grid
+                elements.mediaGrid.innerHTML = '';
+                
+                urls.forEach((link, idx) => {
+                    // Check if video by extension or logic
+                    const isVid = link.includes('.mp4');
+                    
+                    const card = document.createElement('div');
+                    card.className = "glass-panel rounded-xl overflow-hidden group hover:border-violet-500/30 transition duration-300";
+                    
+                    // Preview content
+                    let contentHtml = isVid 
+                        ? `<video src="${link}" class="w-full aspect-square object-cover" controls preload="metadata"></video>`
+                        : `<img src="${link}" class="w-full aspect-square object-cover" loading="lazy">`;
+
+                    card.innerHTML = `
+                        <div class="relative bg-[#0a0a0a]">
+                            ${contentHtml}
+                            <div class="absolute top-2 right-2 px-2 py-0.5 rounded text-[10px] font-bold bg-black/60 backdrop-blur text-white border border-white/10 uppercase">
+                                ${isVid ? 'Video' : 'Image'}
+                            </div>
+                        </div>
+                        <div class="p-4">
+                            <a href="${link}" target="_blank" download class="flex items-center justify-center w-full py-2.5 rounded-lg bg-white text-black font-semibold text-xs hover:bg-gray-200 transition">
+                                <i class="ph-bold ph-download-simple mr-2"></i> Download
+                            </a>
+                        </div>
+                    `;
+                    elements.mediaGrid.appendChild(card);
+                });
+
+                // Show Results
+                elements.resultSection.classList.remove('hidden');
+                setStatus('Berhasil mengekstrak data.', 'success');
+
+                // Smooth scroll
+                elements.resultSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+
+            } catch (err) {
                 console.error(err);
-                showStatus(`Error: ${err.message}`, 'error');
+                setStatus('Gagal mengambil data. Hubungi admin.', 'error');
+                
+                // Show Error Button Action
+                elements.statusText.innerHTML += ` 
+                    <a href="https://wa.me/6285185032092?text=Lapor%20Error%20X-SNZ%20Downloader:%20${encodeURIComponent(err.message)}" 
+                    class="ml-2 underline hover:text-white" target="_blank">Lapor via WA</a>
+                `;
             } finally {
-                btn.innerHTML = oldBtn;
-                btn.disabled = false;
+                elements.btn.innerHTML = originalBtn;
+                elements.btn.disabled = false;
             }
         }
 
-        function renderResult(data, originalUrl) {
-            const container = document.getElementById('resultContainer');
-            const thumb = document.getElementById('thumb');
-            const title = document.getElementById('videoTitle');
-            const btnContainer = document.getElementById('downloadButtons');
-
-            // Reset
-            btnContainer.innerHTML = '';
-
-            // Set Data
-            title.innerText = data.title || "Media Found";
-            thumb.src = data.thumb || "https://placehold.co/600x600/1a1a1a/FFF?text=No+Thumbnail";
-
-            // Helper Button Creator
-            function createBtn(text, link, primary) {
-                const a = document.createElement('a');
-                a.href = link;
-                a.target = "_blank";
-                a.className = primary 
-                    ? "w-full py-3.5 px-6 rounded-xl bg-white text-black font-bold flex items-center justify-center gap-2 hover:bg-gray-200 transition shadow-lg"
-                    : "w-full py-3.5 px-6 rounded-xl bg-white/5 text-gray-300 font-medium flex items-center justify-center gap-2 hover:bg-white/10 transition border border-white/5";
-                a.innerHTML = primary 
-                    ? `<i class="ph-bold ph-download-simple"></i> ${text}`
-                    : `<i class="ph-bold ph-music-note"></i> ${text}`;
-                btnContainer.appendChild(a);
-            }
-
-            // Generate Logic
-            if(data.url) createBtn("Download Video", data.url, true);
-            if(data.no_watermark) createBtn("Download No Watermark", data.no_watermark, true);
-            if(data.audio) createBtn("Download Audio", data.audio, false);
-            
-            if(Array.isArray(data.video)) {
-                data.video.forEach(v => createBtn(`Download ${v.quality || 'Video'}`, v.url, true));
-            }
-
-            // Show
-            container.classList.remove('hidden');
-            container.scrollIntoView({ behavior: 'smooth', block: 'center' });
-        }
+        // Enter Key Listener
+        elements.input.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') fetchData();
+        });
     </script>
 </body>
 </html>
+
 
 
