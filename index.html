@@ -4,329 +4,153 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>X-SNZ Community | IG Downloader</title>
-    
-    <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
-    
-    <!-- Fonts: Inter for Clean Minimalist Look -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    
-    <!-- AOS Animation -->
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
-    
-    <!-- Phosphor Icons -->
     <script src="https://unpkg.com/@phosphor-icons/web"></script>
-
     <script>
         tailwind.config = {
             theme: {
                 extend: {
                     fontFamily: { sans: ['Inter', 'sans-serif'] },
-                    colors: {
-                        dark: '#050505',
-                        glass: 'rgba(255, 255, 255, 0.03)',
-                        accent: '#8b5cf6', // Violet
-                    },
-                    animation: {
-                        'float': 'float 6s ease-in-out infinite',
-                    },
-                    keyframes: {
-                        float: {
-                            '0%, 100%': { transform: 'translateY(0)' },
-                            '50%': { transform: 'translateY(-20px)' },
-                        }
-                    }
+                    colors: { dark: '#050505', glass: 'rgba(255, 255, 255, 0.03)', accent: '#8b5cf6' },
+                    animation: { 'float': 'float 6s ease-in-out infinite' },
+                    keyframes: { float: { '0%, 100%': { transform: 'translateY(0)' }, '50%': { transform: 'translateY(-20px)' } } }
                 }
             }
         }
     </script>
-
     <style>
         body { background-color: #050505; color: #e5e5e5; }
-        
-        /* Minimalist Glass */
-        .glass-panel {
-            background: rgba(20, 20, 20, 0.4);
-            backdrop-filter: blur(24px);
-            -webkit-backdrop-filter: blur(24px);
-            border: 1px solid rgba(255, 255, 255, 0.05);
-        }
-
-        .input-ring:focus-within {
-            box-shadow: 0 0 0 2px rgba(139, 92, 246, 0.3);
-            border-color: rgba(139, 92, 246, 0.5);
-        }
-
-        /* Loading Spinner */
-        .spinner {
-            width: 20px; height: 20px;
-            border: 2px solid rgba(255,255,255,0.1);
-            border-left-color: #8b5cf6;
-            border-radius: 50%;
-            animation: spin 0.8s linear infinite;
-        }
+        .glass-panel { background: rgba(20, 20, 20, 0.4); backdrop-filter: blur(24px); border: 1px solid rgba(255, 255, 255, 0.05); }
+        .spinner { width: 20px; height: 20px; border: 2px solid rgba(255,255,255,0.1); border-left-color: #8b5cf6; border-radius: 50%; animation: spin 0.8s linear infinite; }
         @keyframes spin { 100% { transform: rotate(360deg); } }
     </style>
 </head>
 <body class="antialiased selection:bg-violet-500/30 selection:text-violet-200">
 
-    <!-- Navbar Minimalis -->
-    <nav class="fixed w-full z-50 top-0 transition-all duration-300 bg-[#050505]/80 backdrop-blur-md border-b border-white/5">
+    <!-- Navbar -->
+    <nav class="fixed w-full z-50 top-0 bg-[#050505]/80 backdrop-blur-md border-b border-white/5">
         <div class="max-w-6xl mx-auto px-6 h-20 flex justify-between items-center">
-            <!-- Brand -->
             <a href="#" class="flex items-center gap-3 group">
-                <div class="w-8 h-8 rounded-lg bg-violet-600 flex items-center justify-center text-white font-bold text-sm shadow-[0_0_15px_rgba(139,92,246,0.5)]">
-                    X
-                </div>
-                <span class="font-semibold text-lg tracking-tight group-hover:text-violet-400 transition">
-                    X-SNZ <span class="text-white/40 font-light">Community</span>
-                </span>
+                <div class="w-8 h-8 rounded-lg bg-violet-600 flex items-center justify-center text-white font-bold text-sm shadow-[0_0_15px_rgba(139,92,246,0.5)]">X</div>
+                <span class="font-semibold text-lg tracking-tight group-hover:text-violet-400 transition">X-SNZ <span class="text-white/40 font-light">Community</span></span>
             </a>
-
-            <!-- Social Links -->
-            <div class="flex items-center gap-3 md:gap-4">
-                <!-- WA Channel Button (Highlight) -->
-                <a href="https://whatsapp.com/channel/0029Vb6L0rM5Ejy7aYco3p1l" target="_blank" class="hidden md:flex items-center gap-2 px-3 py-1.5 rounded-full bg-[#25D366]/10 text-[#25D366] text-xs font-medium border border-[#25D366]/20 hover:bg-[#25D366]/20 transition" title="Join Channel">
-                    <i class="ph-fill ph-chats-circle text-base"></i>
-                    <span>Join Channel</span>
-                </a>
-
-                <!-- Icons Mobile/Desktop -->
-                <a href="https://whatsapp.com/channel/0029Vb6L0rM5Ejy7aYco3p1l" target="_blank" class="md:hidden text-white/40 hover:text-[#25D366] transition">
-                    <i class="ph-fill ph-chats-circle text-xl"></i>
-                </a>
-
-                <div class="w-px h-4 bg-white/10 mx-1"></div>
-
-                <a href="https://github.com/Shanove7" target="_blank" class="text-white/40 hover:text-white transition" title="Github Shanove7">
-                    <i class="ph-fill ph-github-logo text-xl"></i>
-                </a>
-                <a href="https://wa.me/6285185032092" target="_blank" class="text-white/40 hover:text-red-400 transition" title="Lapor Error">
-                    <i class="ph-fill ph-warning-circle text-xl"></i>
-                </a>
+            <div class="flex items-center gap-4 text-xs text-white/40">
+                <a href="https://github.com/Shanove7" target="_blank" class="hover:text-white transition">API Docs</a>
+                <a href="https://whatsapp.com/channel/0029Vb6L0rM5Ejy7aYco3p1l" target="_blank" class="hidden md:flex px-3 py-1.5 rounded-full bg-[#25D366]/10 text-[#25D366] border border-[#25D366]/20 hover:bg-[#25D366]/20 transition">Join Channel</a>
             </div>
         </div>
     </nav>
 
-    <!-- Main Content -->
+    <!-- Main -->
     <main class="relative min-h-screen flex flex-col justify-center items-center px-6 pt-24 pb-12 overflow-hidden">
-        
-        <!-- Abstract Glow Background -->
         <div class="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[600px] bg-violet-600/10 rounded-full blur-[120px] pointer-events-none animate-float"></div>
 
-        <!-- Hero Section -->
         <div class="relative z-10 w-full max-w-2xl mx-auto text-center" data-aos="fade-up">
             <div class="inline-flex items-center gap-2 px-3 py-1 mb-6 rounded-full border border-white/5 bg-white/5 text-[10px] uppercase tracking-[0.2em] text-white/60">
-                <span class="w-1.5 h-1.5 rounded-full bg-green-500 animate-pulse"></span>
-                System Online
+                <span class="w-1.5 h-1.5 rounded-full bg-green-500 animate-pulse"></span> Endpoint Live
             </div>
             
-            <h1 class="text-4xl md:text-6xl font-bold tracking-tight mb-4 text-transparent bg-clip-text bg-gradient-to-b from-white to-white/40">
-                Instagram Downloader
-            </h1>
-            <p class="text-white/40 text-sm md:text-base max-w-md mx-auto mb-10 leading-relaxed">
-                Download Reels, Stories, & Post dengan kualitas orisinal. Alat bantu gratis dari komunitas X-SNZ.
-            </p>
+            <h1 class="text-4xl md:text-6xl font-bold tracking-tight mb-4 text-transparent bg-clip-text bg-gradient-to-b from-white to-white/40">Instagram Downloader</h1>
+            <p class="text-white/40 text-sm md:text-base max-w-md mx-auto mb-10">Free API for Developers. Powered by X-SNZ.</p>
 
-            <!-- Input Area -->
-            <div class="glass-panel p-2 rounded-2xl flex flex-col sm:flex-row items-center gap-2 transition-all duration-300 input-ring group">
+            <div class="glass-panel p-2 rounded-2xl flex flex-col sm:flex-row items-center gap-2 transition-all duration-300 group focus-within:ring-2 focus-within:ring-violet-500/30">
                 <div class="w-full flex items-center px-4 py-2">
-                    <i class="ph ph-link text-white/30 text-xl mr-3 group-focus-within:text-violet-400 transition"></i>
-                    <input type="text" id="urlInput" 
-                        class="w-full bg-transparent border-none text-white text-sm focus:outline-none placeholder-white/20 font-light"
-                        placeholder="Paste link https://instagram.com/..." autocomplete="off">
+                    <i class="ph ph-link text-white/30 text-xl mr-3"></i>
+                    <input type="text" id="urlInput" class="w-full bg-transparent border-none text-white text-sm focus:outline-none placeholder-white/20 font-light" placeholder="https://instagram.com/..." autocomplete="off">
                 </div>
-                <button onclick="fetchData()" id="btnAction" class="w-full sm:w-auto h-12 px-8 rounded-xl bg-violet-600 hover:bg-violet-500 text-white font-medium text-sm transition-all duration-300 shadow-lg shadow-violet-600/20 flex items-center justify-center gap-2 whitespace-nowrap">
-                    Download
-                </button>
+                <button onclick="fetchData()" id="btnAction" class="w-full sm:w-auto h-12 px-8 rounded-xl bg-violet-600 hover:bg-violet-500 text-white font-medium text-sm transition-all shadow-lg shadow-violet-600/20">Download</button>
             </div>
-
-            <!-- Status Message -->
-            <div id="statusArea" class="mt-6 h-6 flex justify-center items-center gap-2 opacity-0 transition-opacity duration-300">
-                <span id="statusIcon"></span>
-                <span id="statusText" class="text-xs font-medium text-white/50"></span>
-            </div>
+            <div id="statusArea" class="mt-6 h-6 flex justify-center items-center gap-2 opacity-0 transition-opacity"><span id="statusText" class="text-xs font-medium text-white/50"></span></div>
         </div>
 
-        <!-- Result Container -->
+        <!-- Result -->
         <div id="resultSection" class="w-full max-w-4xl mt-16 hidden">
-            
-            <!-- User Metadata Card -->
             <div class="glass-panel p-6 rounded-2xl flex items-center gap-5 mb-8 animate-fade-in-up">
                 <div class="w-14 h-14 rounded-full bg-gradient-to-tr from-yellow-500 to-fuchsia-600 p-[2px] flex-shrink-0">
-                    <div class="w-full h-full rounded-full bg-[#0a0a0a] flex items-center justify-center overflow-hidden">
-                        <i class="ph-fill ph-user text-2xl text-white/20"></i>
-                    </div>
+                    <div class="w-full h-full rounded-full bg-[#0a0a0a] flex items-center justify-center overflow-hidden"><i class="ph-fill ph-user text-2xl text-white/20"></i></div>
                 </div>
                 <div class="flex-1 min-w-0">
                     <h3 id="metaUsername" class="text-white font-medium text-lg truncate">@username</h3>
                     <p id="metaCaption" class="text-white/40 text-xs line-clamp-1 truncate mt-0.5">Caption text...</p>
                 </div>
-                <div class="flex gap-4 text-xs text-white/40 font-mono hidden sm:flex">
-                    <span class="flex items-center gap-1.5 bg-white/5 px-2 py-1 rounded"><i class="ph-fill ph-heart text-red-500"></i> <span id="metaLikes">0</span></span>
-                    <span class="flex items-center gap-1.5 bg-white/5 px-2 py-1 rounded"><i class="ph-fill ph-chat-circle text-blue-400"></i> <span id="metaComments">0</span></span>
-                </div>
             </div>
-
-            <!-- Grid Media -->
-            <div id="mediaGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
-                <!-- Cards will be injected here -->
-            </div>
-
-            <!-- Reset Button -->
-            <div class="mt-10 text-center">
-                <button onclick="resetUI()" class="text-xs text-white/30 hover:text-white transition flex items-center justify-center gap-2 mx-auto">
-                    <i class="ph ph-arrow-counter-clockwise"></i> Reset Pencarian
-                </button>
-            </div>
+            <div id="mediaGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5"></div>
+            <div class="mt-10 text-center"><button onclick="resetUI()" class="text-xs text-white/30 hover:text-white transition flex items-center justify-center gap-2 mx-auto"><i class="ph ph-arrow-counter-clockwise"></i> Reset</button></div>
+        </div>
+        
+        <!-- API Info -->
+        <div class="mt-12 p-4 rounded-xl border border-white/5 bg-white/5 max-w-2xl mx-auto text-center">
+            <p class="text-xs text-white/40 mb-2">Developers? Use our Public API:</p>
+            <code class="text-xs text-violet-300 bg-black/50 px-3 py-1 rounded font-mono select-all">GET /api?url={instagram_url}</code>
         </div>
 
     </main>
 
-    <!-- Footer -->
-    <footer class="border-t border-white/5 bg-[#050505] py-8 mt-auto">
-        <div class="max-w-6xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-4">
-            <p class="text-xs text-white/30">
-                &copy; 2024 <span class="text-white/60 font-medium">X-SNZ Community</span>. All Rights Reserved.
-            </p>
-            <div class="flex items-center gap-4 text-xs text-white/40">
-                <a href="https://whatsapp.com/channel/0029Vb6L0rM5Ejy7aYco3p1l" target="_blank" class="hover:text-[#25D366] transition flex items-center gap-1">
-                    <i class="ph-fill ph-chats-circle"></i> Join Channel
-                </a>
-                <span class="w-px h-3 bg-white/10"></span>
-                <a href="https://github.com/Shanove7" target="_blank" class="hover:text-white transition">GitHub</a>
-                <a href="https://wa.me/6285185032092" target="_blank" class="hover:text-red-400 transition">Lapor Error</a>
-            </div>
-        </div>
+    <footer class="border-t border-white/5 bg-[#050505] py-8 mt-auto text-center">
+        <p class="text-xs text-white/30">&copy; 2025 X-SNZ Community. All Rights Reserved.</p>
     </footer>
 
-    <!-- Scripts -->
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
         AOS.init({ once: true, duration: 800, offset: 50 });
-
-        // --- Logic X-SNZ ---
-
-        const elements = {
-            input: document.getElementById('urlInput'),
-            btn: document.getElementById('btnAction'),
-            statusArea: document.getElementById('statusArea'),
-            statusText: document.getElementById('statusText'),
-            resultSection: document.getElementById('resultSection'),
-            mediaGrid: document.getElementById('mediaGrid'),
-            metaUsername: document.getElementById('metaUsername'),
-            metaCaption: document.getElementById('metaCaption'),
-            metaLikes: document.getElementById('metaLikes'),
-            metaComments: document.getElementById('metaComments')
-        };
-
+        const els = { input: document.getElementById('urlInput'), btn: document.getElementById('btnAction'), statusArea: document.getElementById('statusArea'), statusText: document.getElementById('statusText'), resultSection: document.getElementById('resultSection'), mediaGrid: document.getElementById('mediaGrid'), metaUsername: document.getElementById('metaUsername'), metaCaption: document.getElementById('metaCaption') };
+        
         function setStatus(msg, type = 'neutral') {
-            elements.statusArea.style.opacity = '1';
-            elements.statusText.innerText = msg;
-            
-            if (type === 'error') elements.statusText.className = "text-xs font-medium text-red-400";
-            else if (type === 'success') elements.statusText.className = "text-xs font-medium text-green-400";
-            else elements.statusText.className = "text-xs font-medium text-white/50";
+            els.statusArea.style.opacity = '1';
+            els.statusText.innerText = msg;
+            els.statusText.className = type === 'error' ? "text-xs font-medium text-red-400" : type === 'success' ? "text-xs font-medium text-green-400" : "text-xs font-medium text-white/50";
         }
-
-        function resetUI() {
-            elements.input.value = '';
-            elements.resultSection.classList.add('hidden');
-            elements.statusArea.style.opacity = '0';
-        }
+        function resetUI() { els.input.value = ''; els.resultSection.classList.add('hidden'); els.statusArea.style.opacity = '0'; }
 
         async function fetchData() {
-            const url = elements.input.value.trim();
+            const url = els.input.value.trim();
+            if (!url) return setStatus('URL kosong bos!', 'error');
 
-            if (!url) {
-                setStatus('Mohon masukkan URL Instagram yang valid.', 'error');
-                return;
-            }
-
-            // Loading State
-            const originalBtn = elements.btn.innerHTML;
-            elements.btn.innerHTML = `<div class="spinner"></div>`;
-            elements.btn.disabled = true;
-            elements.resultSection.classList.add('hidden');
-            setStatus('Sedang menghubungi server X-SNZ...', 'neutral');
+            const oldBtn = els.btn.innerHTML;
+            els.btn.innerHTML = `<div class="spinner"></div>`;
+            els.btn.disabled = true;
+            els.resultSection.classList.add('hidden');
+            setStatus('Sedang diproses API X-SNZ...', 'neutral');
 
             try {
-                // Endpoint FAA
-                const response = await fetch(`https://api-faa.my.id/faa/igdl?url=${encodeURIComponent(url)}`);
-                const data = await response.json();
+                // MENGGUNAKAN API INTERNAL KITA SENDIRI (/api)
+                const response = await fetch(`/api?url=${encodeURIComponent(url)}`);
+                const json = await response.json();
 
-                // Validasi
-                if (!data || !data.result) throw new Error('Konten tidak ditemukan / Akun Private.');
+                if (!json.status || !json.data) throw new Error(json.message || 'Gagal');
 
-                const result = data.result;
-                const urls = Array.isArray(result.url) ? result.url : [result.url];
-                const meta = result.metadata || {};
+                const { media, metadata } = json.data;
+                const urls = Array.isArray(media) ? media : [media];
 
-                if (!urls.length) throw new Error('Media kosong.');
+                els.metaUsername.innerText = '@' + (metadata.username || 'User');
+                els.metaCaption.innerText = metadata.caption || '-';
+                els.mediaGrid.innerHTML = '';
 
-                // Populate Metadata
-                elements.metaUsername.innerText = '@' + (meta.username || 'Unknown_User');
-                elements.metaCaption.innerText = meta.caption || 'No caption provided.';
-                elements.metaLikes.innerText = (meta.like || 0).toLocaleString();
-                elements.metaComments.innerText = (meta.comment || 0).toLocaleString();
-
-                // Clear & Populate Grid
-                elements.mediaGrid.innerHTML = '';
-                
-                urls.forEach((link, idx) => {
-                    // Check if video by extension or logic
+                urls.forEach(link => {
                     const isVid = link.includes('.mp4');
-                    
-                    const card = document.createElement('div');
-                    card.className = "glass-panel rounded-xl overflow-hidden group hover:border-violet-500/30 transition duration-300";
-                    
-                    // Preview content
-                    let contentHtml = isVid 
-                        ? `<video src="${link}" class="w-full aspect-square object-cover" controls preload="metadata"></video>`
-                        : `<img src="${link}" class="w-full aspect-square object-cover" loading="lazy">`;
-
-                    card.innerHTML = `
+                    const div = document.createElement('div');
+                    div.className = "glass-panel rounded-xl overflow-hidden group hover:border-violet-500/30 transition duration-300";
+                    div.innerHTML = `
                         <div class="relative bg-[#0a0a0a]">
-                            ${contentHtml}
-                            <div class="absolute top-2 right-2 px-2 py-0.5 rounded text-[10px] font-bold bg-black/60 backdrop-blur text-white border border-white/10 uppercase">
-                                ${isVid ? 'Video' : 'Image'}
-                            </div>
+                            ${isVid ? `<video src="${link}" class="w-full aspect-square object-cover" controls></video>` : `<img src="${link}" class="w-full aspect-square object-cover">`}
+                            <div class="absolute top-2 right-2 px-2 py-0.5 rounded text-[10px] font-bold bg-black/60 backdrop-blur text-white border border-white/10 uppercase">${isVid ? 'Video' : 'Image'}</div>
                         </div>
-                        <div class="p-4">
-                            <a href="${link}" target="_blank" download class="flex items-center justify-center w-full py-2.5 rounded-lg bg-white text-black font-semibold text-xs hover:bg-gray-200 transition">
-                                <i class="ph-bold ph-download-simple mr-2"></i> Download
-                            </a>
-                        </div>
-                    `;
-                    elements.mediaGrid.appendChild(card);
+                        <div class="p-4"><a href="${link}" target="_blank" download class="flex items-center justify-center w-full py-2.5 rounded-lg bg-white text-black font-semibold text-xs hover:bg-gray-200 transition">Download</a></div>`;
+                    els.mediaGrid.appendChild(div);
                 });
 
-                // Show Results
-                elements.resultSection.classList.remove('hidden');
-                setStatus('Berhasil mengekstrak data.', 'success');
-
-                // Smooth scroll
-                elements.resultSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
-
+                els.resultSection.classList.remove('hidden');
+                setStatus('Sukses!', 'success');
             } catch (err) {
                 console.error(err);
-                setStatus('Gagal mengambil data. Hubungi admin.', 'error');
-                
-                // Show Error Button Action
-                elements.statusText.innerHTML += ` 
-                    <a href="https://wa.me/6285185032092?text=Lapor%20Error%20X-SNZ%20Downloader:%20${encodeURIComponent(err.message)}" 
-                    class="ml-2 underline hover:text-white" target="_blank">Lapor via WA</a>
-                `;
+                setStatus('Error: ' + err.message, 'error');
             } finally {
-                elements.btn.innerHTML = originalBtn;
-                elements.btn.disabled = false;
+                els.btn.innerHTML = oldBtn;
+                els.btn.disabled = false;
             }
         }
-
-        // Enter Key Listener
-        elements.input.addEventListener('keypress', (e) => {
-            if (e.key === 'Enter') fetchData();
-        });
     </script>
 </body>
 </html>
