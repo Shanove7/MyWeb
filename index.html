@@ -5,66 +5,55 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Shanove Music</title>
     
-    <!-- ICONS -->
     <link rel="icon" href="https://o.uguu.se/mfiOBtDJ.jpg" type="image/jpeg">
     <link rel="apple-touch-icon" href="https://o.uguu.se/mfiOBtDJ.jpg">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="theme-color" content="#000000">
 
-    <!-- LIBS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;700&display=swap');
-        
         html, body { height: 100%; width: 100%; overflow: hidden; overscroll-behavior: none; font-family: 'Outfit', sans-serif; background: #000; color: white; -webkit-tap-highlight-color: transparent; user-select: none; }
         .scroll-area { overflow-y: auto; -webkit-overflow-scrolling: touch; overscroll-behavior-y: contain; }
         .no-scrollbar::-webkit-scrollbar { display: none; }
-        
         .fs-overlay { transform: translateY(100%); transition: transform 0.3s cubic-bezier(0.2, 0.8, 0.2, 1); will-change: transform; z-index: 200; }
         .fs-overlay.active { transform: translateY(0); }
-        
-        /* Slider Styling */
         input[type=range] { -webkit-appearance: none; background: transparent; height: 20px; cursor: pointer; }
         input[type=range]::-webkit-slider-runnable-track { height: 4px; background: #333; border-radius: 2px; }
         input[type=range]::-webkit-slider-thumb { -webkit-appearance: none; width: 0; height: 0; box-shadow: -100vw 0 0 100vw #a855f7; background: #fff; }
         #fsSeek::-webkit-slider-thumb { width: 12px; height: 12px; border-radius: 50%; background: white; margin-top: -4px; box-shadow: none; -webkit-appearance: none; }
-        
-        /* Lyrics Styling */
         .lyrics-line { transition: all 0.3s ease; opacity: 0.3; padding: 10px 0; text-align: center; font-size: 1.25rem; font-weight: 700; cursor: pointer; }
-        .lyrics-line.active { opacity: 1; color: #a855f7; transform: scale(1.05); text-shadow: 0 0 15px rgba(168, 85, 247, 0.3); }
+        .lyrics-line.active { opacity: 1; color: #a855f7; transform: scale(1.05); }
     </style>
 </head>
 <body class="fixed inset-0">
 
-    <!-- 1. LOGIN OVERLAY -->
+    <!-- LOGIN -->
     <div id="loginOverlay" class="fixed inset-0 z-[300] bg-black flex items-center justify-center p-4">
         <div class="bg-[#121212] border border-[#333] p-8 rounded-3xl w-full max-w-md text-center shadow-2xl relative">
-            <!-- Logo Container (Contain Aspect Ratio) -->
             <div class="w-24 h-24 mx-auto mb-6 bg-black rounded-2xl overflow-hidden flex items-center justify-center border border-white/10 p-1">
                 <img src="https://o.uguu.se/mfiOBtDJ.jpg" class="max-w-full max-h-full object-contain">
             </div>
-            <h1 class="text-2xl font-bold mb-6 tracking-tight">Shanove Music</h1>
+            <h1 class="text-2xl font-bold mb-6">Shanove Music</h1>
             
             <div id="phoneForm">
-                <input type="tel" id="phoneInput" placeholder="Nomor WhatsApp (628...)" class="w-full bg-[#1e1e1e] text-white p-4 rounded-2xl mb-4 outline-none border border-[#333] focus:border-purple-500 text-center text-xl">
-                <button onclick="sendWAOTP()" id="btnSend" class="w-full bg-white hover:bg-gray-200 text-black font-bold py-4 rounded-2xl shadow-lg transition active:scale-95">Masuk Sekarang</button>
+                <input type="tel" id="phoneInput" placeholder="Nomer WA (628...)" class="w-full bg-[#1e1e1e] text-white p-4 rounded-2xl mb-4 outline-none border border-[#333] focus:border-purple-500 text-center text-xl">
+                <button onclick="sendWAOTP()" id="btnSend" class="w-full bg-white hover:bg-gray-100 text-black font-bold py-4 rounded-2xl shadow-lg transition active:scale-95">Masuk</button>
             </div>
 
             <div id="otpForm" class="hidden">
-                <p class="text-center text-gray-400 mb-4 text-sm font-medium">Masukan Kode OTP dari WhatsApp</p>
+                <p class="text-center text-gray-400 mb-4 text-sm font-medium">Masukan Kode OTP</p>
                 <input type="text" inputmode="numeric" maxlength="6" id="otpInput" placeholder="000000" class="w-full bg-[#1e1e1e] text-white p-4 rounded-2xl mb-4 outline-none text-center tracking-[0.5em] text-2xl font-bold border border-[#333] focus:border-purple-500">
                 <button onclick="verifyOTP()" id="btnVerify" class="w-full bg-purple-600 text-white font-bold py-4 rounded-2xl transition">Verifikasi</button>
             </div>
         </div>
     </div>
 
-    <!-- 2. MAIN APP -->
+    <!-- MAIN APP -->
     <div class="flex flex-col h-full w-full">
         <div class="flex-1 bg-[#0a0a0a] relative w-full scroll-area pb-[140px]" id="mainContainer">
-            
-            <!-- PAGE: HOME -->
             <div id="pageHome" class="min-h-full p-4">
                 <div class="flex items-center gap-3 mb-6 pt-2">
                     <div class="w-10 h-10 rounded-full border border-white/10 overflow-hidden bg-black flex items-center justify-center cursor-pointer p-1" onclick="switchPage('Profile')">
@@ -72,77 +61,66 @@
                     </div>
                     <h1 id="homeUsername" class="text-lg font-bold">User</h1>
                 </div>
-
-                <!-- INFO BANNER -->
                 <div class="bg-gradient-to-br from-indigo-900 to-black rounded-3xl p-6 mb-8 relative overflow-hidden border border-white/10 shadow-xl">
                     <div class="relative z-10">
-                        <h1 class="text-2xl font-bold mb-1 text-white">Shanove Music</h1>
-                        <p class="text-gray-200 text-xs mb-4 font-bold opacity-80 uppercase tracking-widest">Anti Iklan • Super Cepat • Gratis</p>
+                        <h1 class="text-2xl font-bold mb-1">Shanove Music</h1>
+                        <p class="text-gray-200 text-xs mb-4 font-bold opacity-80 uppercase tracking-widest text-white">Anti Iklan • Cepat • Gratis</p>
                         <div class="flex gap-2">
-                            <button onclick="searchMusic('Lagu Pop Hits Indonesia')" class="bg-white text-black px-5 py-2 rounded-full text-[10px] font-bold shadow-lg transition active:scale-95">PUTAR HITS</button>
-                            <a href="https://wa.me/6285185032092" target="_blank" class="bg-green-600 text-white px-5 py-2 rounded-full text-[10px] font-bold flex items-center gap-1 shadow-lg active:scale-95 transition"><i class="fab fa-whatsapp"></i> LAPOR BUG</a>
+                            <button onclick="searchMusic('Lagu Pop Hits')" class="bg-white text-black px-5 py-2 rounded-full text-[10px] font-bold">PUTAR HITS</button>
+                            <a href="https://wa.me/6285185032092" target="_blank" class="bg-green-600 text-white px-5 py-2 rounded-full text-[10px] font-bold flex items-center gap-1"><i class="fab fa-whatsapp"></i> LAPOR BUG</a>
                         </div>
                     </div>
                     <i class="fas fa-bolt absolute -right-6 -bottom-6 text-9xl text-white/5 rotate-12"></i>
                 </div>
-
-                <h2 class="font-bold text-lg mb-4 px-1">Moods Untukmu</h2>
+                <h2 class="font-bold text-lg mb-4 px-1">Pilihan Moods</h2>
                 <div class="grid grid-cols-2 gap-3 mb-10">
-                    <div onclick="searchMusic('Phonk')" class="bg-[#181818] p-3 rounded-2xl flex items-center gap-3 cursor-pointer active:scale-95 transition"><div class="w-10 h-10 bg-purple-900 rounded-xl flex items-center justify-center text-xl">🏎️</div><span class="text-sm font-bold">Phonk</span></div>
-                    <div onclick="searchMusic('Galau')" class="bg-[#181818] p-3 rounded-2xl flex items-center gap-3 cursor-pointer active:scale-95 transition"><div class="w-10 h-10 bg-blue-900 rounded-xl flex items-center justify-center text-xl">😢</div><span class="text-sm font-bold">Galau</span></div>
+                    <div onclick="searchMusic('Phonk')" class="bg-[#181818] p-3 rounded-2xl flex items-center gap-3 cursor-pointer"><div class="w-10 h-10 bg-purple-900 rounded-xl flex items-center justify-center text-xl">🏎️</div><span class="text-sm font-bold">Phonk</span></div>
+                    <div onclick="searchMusic('Galau')" class="bg-[#181818] p-3 rounded-2xl flex items-center gap-3 cursor-pointer"><div class="w-10 h-10 bg-blue-900 rounded-xl flex items-center justify-center text-xl">😢</div><span class="text-sm font-bold">Galau</span></div>
                 </div>
             </div>
-
-            <!-- PAGE: SEARCH -->
             <div id="pageSearch" class="hidden min-h-full p-4">
-                <input type="text" id="searchInput" placeholder="Cari lagu di YouTube..." class="w-full bg-[#1f1f1f] text-white p-4 rounded-full outline-none border border-transparent focus:border-purple-500 mb-6 text-sm" onkeypress="if(event.key === 'Enter') searchMusic(this.value)">
+                <input type="text" id="searchInput" placeholder="Cari di YouTube..." class="w-full bg-[#181818] text-white p-4 rounded-full outline-none border border-transparent focus:border-purple-500 mb-6 text-sm" onkeypress="if(event.key === 'Enter') searchMusic(this.value)">
                 <div id="trackGrid" class="grid grid-cols-2 gap-3 pb-20"></div>
             </div>
-
-            <!-- PAGE: PROFILE -->
             <div id="pageProfile" class="hidden min-h-full p-4 flex flex-col items-center">
-                <h1 class="text-2xl font-bold mb-8 self-start">Profil Saya</h1>
-                <div class="w-32 h-32 rounded-full border-4 border-[#222] overflow-hidden bg-black mb-6 flex items-center justify-center relative shadow-2xl p-2">
+                <div class="w-32 h-32 rounded-full border-4 border-[#222] overflow-hidden bg-black mb-6 flex items-center justify-center relative p-2 shadow-2xl">
                     <img id="profilePicLarge" src="https://o.uguu.se/mfiOBtDJ.jpg" class="max-w-full max-h-full object-contain">
-                    <input type="text" id="editAvatarInput" class="absolute inset-0 opacity-0 cursor-pointer" onchange="saveProfile()" title="Ubah Link Foto">
                 </div>
                 <input type="text" id="editUsernameInput" class="bg-transparent text-2xl font-bold text-center border-b border-gray-700 outline-none mb-10 focus:border-purple-500" onchange="saveProfile()">
-                <button onclick="logout()" class="w-full py-4 rounded-2xl bg-red-900/20 text-red-500 font-bold border border-red-900/30 active:scale-95 transition">KALUAR AKUN</button>
+                <button onclick="logout()" class="w-full py-4 rounded-2xl bg-red-900/20 text-red-500 font-bold border border-red-900/30">LOGOUT</button>
             </div>
         </div>
 
-        <!-- PLAYER BAR -->
         <div id="playerBar" class="fixed bottom-[65px] w-full h-[65px] bg-[#0c0c0c] border-t border-[#222] px-3 flex items-center justify-between z-50 hidden backdrop-blur-lg" onclick="openFullscreen()">
             <div class="flex items-center w-[70%] gap-3 overflow-hidden">
                 <img id="miniThumb" src="" class="w-11 h-11 rounded object-cover flex-shrink-0 bg-[#222]">
-                <div class="overflow-hidden"><h4 id="miniTitle" class="text-sm font-bold text-white truncate leading-tight">Judul</h4><p id="miniArtist" class="text-[10px] text-gray-500 truncate">Artis</p></div>
+                <div class="overflow-hidden"><h4 id="miniTitle" class="text-sm font-bold text-white truncate leading-tight">Title</h4><p id="miniArtist" class="text-[10px] text-gray-500 truncate">Artist</p></div>
             </div>
             <button onclick="event.stopPropagation(); togglePlay()" class="w-10 h-10 flex items-center justify-center bg-white text-black rounded-full shadow-lg active:scale-90 transition"><i id="playIconMini" class="fas fa-play text-sm"></i></button>
             <div class="absolute top-0 left-0 w-full h-[2px] bg-[#333]"><div id="progressMini" class="h-full bg-purple-500 w-0"></div></div>
         </div>
 
-        <!-- NAVBAR -->
         <div class="fixed bottom-0 left-0 right-0 bg-black border-t border-[#1a1a1a] h-[65px] flex items-center justify-around z-40">
-            <div onclick="switchPage('Home')" class="flex flex-col items-center text-purple-500 transition" id="navHome"><i class="fas fa-home text-xl mb-1"></i><span class="text-[10px] font-bold">HOME</span></div>
-            <div onclick="switchPage('Search')" class="flex flex-col items-center text-gray-500 transition" id="navSearch"><i class="fas fa-search text-xl mb-1"></i><span class="text-[10px]">CARI</span></div>
-            <div onclick="switchPage('Profile')" class="flex flex-col items-center text-gray-500 transition" id="navProfile"><i class="fas fa-user text-xl mb-1"></i><span class="text-[10px]">PROFIL</span></div>
+            <div onclick="switchPage('Home')" class="flex flex-col items-center text-purple-500 transition" id="navHome"><i class="fas fa-home text-xl mb-1"></i><span class="text-[10px]">Home</span></div>
+            <div onclick="switchPage('Search')" class="flex flex-col items-center text-gray-500 transition" id="navSearch"><i class="fas fa-search text-xl mb-1"></i><span class="text-[10px]">Search</span></div>
+            <div onclick="switchPage('Profile')" class="flex flex-col items-center text-gray-500 transition" id="navProfile"><i class="fas fa-user text-xl mb-1"></i><span class="text-[10px]">Profil</span></div>
         </div>
     </div>
 
     <!-- FULLSCREEN PLAYER -->
     <div id="fsOverlay" class="fs-overlay fixed inset-0 bg-[#050505] flex flex-col h-full w-full overflow-hidden">
         <div class="flex justify-between items-center p-6 relative z-20 shrink-0">
-            <button onclick="closeFullscreen()" class="text-white w-10 h-10 rounded-full hover:bg-white/10 flex items-center justify-center active:bg-white/20"><i class="fas fa-chevron-down text-xl"></i></button>
+            <button onclick="closeFullscreen()" class="text-white w-10 h-10 rounded-full hover:bg-white/10 flex items-center justify-center"><i class="fas fa-chevron-down text-xl"></i></button>
             <span class="text-[10px] font-bold tracking-[0.3em] text-purple-400">SHANOVE PLAYER</span>
             <button onclick="window.open(audio.src, '_blank')" class="text-white w-10 h-10 rounded-full hover:bg-white/10 flex items-center justify-center"><i class="fas fa-download"></i></button>
         </div>
         <div class="flex-1 overflow-y-auto px-6 pb-6 relative z-10 no-scrollbar scroll-area">
             <div class="fixed inset-0 z-[-1] opacity-20"><img id="fsBg" class="w-full h-full object-cover blur-[100px] scale-110"></div>
             <div class="w-full aspect-square rounded-3xl shadow-2xl mb-8 overflow-hidden bg-[#222] mx-auto max-w-xs mt-2 border border-white/5"><img id="fsThumb" src="" class="w-full h-full object-cover"></div>
-            <div class="w-full mb-8 mx-auto max-w-xs text-center"><h1 id="fsTitle" class="text-2xl font-bold text-white leading-tight mb-1 truncate">Judul</h1><p id="fsArtist" class="text-lg text-gray-400 truncate">Artis</p></div>
+            <div class="w-full mb-8 mx-auto max-w-xs text-center"><h1 id="fsTitle" class="text-2xl font-bold text-white leading-tight mb-1 truncate">Title</h1><p id="fsArtist" class="text-lg text-gray-400 truncate">Artist</p></div>
             <div class="w-full mb-8 mx-auto max-w-xs">
                 <input type="range" id="fsSeek" value="0" max="100" class="w-full" oninput="seekInput(this.value)" onchange="seekChange(this.value)">
-                <div class="flex justify-between w-full text-xs text-gray-500 mt-2 font-mono"><span id="timeFs">0:00</span><span id="durFs">0:00</span></div>
+                <div class="flex justify-between w-full text-xs text-gray-500 mt-2 font-mono"><span id="curTime">0:00</span><span id="durTime">0:00</span></div>
             </div>
             <div class="flex items-center justify-between w-full mx-auto max-w-xs mb-10 px-4">
                 <button onclick="toggleShuffle()" id="btnShuffle" class="text-gray-500 transition"><i class="fas fa-shuffle text-xl"></i></button>
@@ -151,7 +129,7 @@
                 <button onclick="nextSong()" class="text-white text-4xl active:scale-90 transition"><i class="fas fa-forward-step"></i></button>
                 <button class="text-gray-500"><i class="fas fa-repeat text-xl"></i></button>
             </div>
-            <div id="lyricsContainer" class="w-full mx-auto max-w-sm bg-black/40 rounded-3xl p-8 border border-white/5 min-h-[300px] overflow-y-auto no-scrollbar scroll-smooth"></div>
+            <div id="lyricsContainer" class="w-full mx-auto max-w-sm bg-black/40 rounded-3xl p-8 border border-white/5 h-[300px] overflow-y-auto no-scrollbar scroll-smooth"></div>
         </div>
     </div>
 
@@ -159,13 +137,12 @@
 
     <script>
         const API_KEY = "RS-e5vtb61yow";
-        // URL Terkunci ke Server Ptero Lu
-        const BOT_API_URL = "https://hexel-cloud.cfd:5018"; 
+        // LANGSUNG TEMBAK IP BOT LU
+        const BOT_API_URL = "http://165.227.208.228:5018"; 
 
         const audio = document.getElementById('audioPlayer');
         let queue = [], curIndex = -1, isSeeking = false, isShuffle = false, syncedLyrics = [];
 
-        // --- AUTH ---
         if(localStorage.getItem('shanove_user_id')) {
             document.getElementById('loginOverlay').classList.add('hidden');
             loadProfile();
@@ -173,25 +150,27 @@
 
         async function sendWAOTP() {
             const phone = document.getElementById('phoneInput').value.trim();
-            if(phone.length < 10) return alert("Nomor tidak valid!");
+            if(phone.length < 10) return alert("Nomer gak valid!");
             const otp = Math.floor(100000 + Math.random() * 900000);
             sessionStorage.setItem('temp_otp', otp);
             sessionStorage.setItem('temp_phone', phone);
             
-            document.getElementById('btnSend').innerText = "Mengirim...";
+            document.getElementById('btnSend').innerText = "Kirim...";
             
             try {
+                // Gunakan mode cors secara eksplisit
                 const res = await fetch(`${BOT_API_URL}/send-otp`, {
                     method: 'POST',
+                    mode: 'cors',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ phone, otp })
                 });
                 if(res.ok) {
                     document.getElementById('phoneForm').classList.add('hidden');
                     document.getElementById('otpForm').classList.remove('hidden');
-                } else throw new Error();
+                } else { throw new Error(); }
             } catch (e) { 
-                alert("Server Bot Offline. Gunakan kode 000000 untuk masuk (Mode Testing)."); 
+                alert("Bot di IP 165.227.208.228 gak ngerespon (Offline). Pake kode 000000 buat masuk."); 
                 document.getElementById('phoneForm').classList.add('hidden');
                 document.getElementById('otpForm').classList.remove('hidden');
             }
@@ -206,7 +185,7 @@
         }
 
         function loadProfile() {
-            const name = localStorage.getItem('shanove_name') || "User " + localStorage.getItem('shanove_user_id').slice(-4);
+            const name = localStorage.getItem('shanove_name') || "User";
             document.getElementById('homeUsername').innerText = name;
             document.getElementById('editUsernameInput').value = name;
         }
@@ -218,27 +197,26 @@
 
         function logout() { localStorage.clear(); location.reload(); }
 
-        // --- MUSIC ENGINE (YT) ---
+        // --- ENGINE ---
         async function searchMusic(q) {
             switchPage('Search');
-            document.getElementById('trackGrid').innerHTML = "<p class='col-span-full text-center mt-10 text-gray-500'>Mencari lagu...</p>";
+            document.getElementById('trackGrid').innerHTML = "Mencari...";
             try {
                 const res = await fetch(`https://api.betabotz.eu.org/api/search/youtube?text=${encodeURIComponent(q)}&apikey=${API_KEY}`);
                 const json = await res.json();
                 queue = json.result.map(v => ({ title: v.title, artist: v.author.name, thumb: v.image, url: v.url }));
                 document.getElementById('trackGrid').innerHTML = queue.map((t, i) => `
-                    <div onclick="playMusic(${i})" class="bg-[#151515] p-3 rounded-2xl active:scale-95 transition group">
-                        <img src="${t.thumb}" class="aspect-video rounded-xl mb-2 object-cover">
+                    <div onclick="playMusic(${i})" class="bg-[#181818] p-3 rounded-2xl active:scale-95 transition">
+                        <img src="${t.thumb}" class="aspect-video rounded-lg mb-2 object-cover">
                         <h3 class="text-sm font-bold truncate leading-tight">${t.title}</h3>
                     </div>`).join('');
-            } catch (e) { alert("Terjadi kesalahan saat mencari."); }
+            } catch (e) { alert("Search Error"); }
         }
 
         async function playMusic(i) {
             if(i < 0 || i >= queue.length) return;
             curIndex = i; const t = queue[i];
             document.getElementById('playerBar').classList.remove('hidden');
-            
             document.getElementById('miniTitle').innerText = t.title;
             document.getElementById('miniArtist').innerText = t.artist;
             document.getElementById('miniThumb').src = t.thumb;
@@ -247,7 +225,13 @@
             document.getElementById('fsThumb').src = t.thumb;
             document.getElementById('fsBg').src = t.thumb;
 
-            updateMediaSession(t);
+            if ('mediaSession' in navigator) {
+                navigator.mediaSession.metadata = new MediaMetadata({ title: t.title, artist: t.artist, artwork: [{ src: t.thumb, sizes: '512x512', type: 'image/jpeg' }] });
+                navigator.mediaSession.setActionHandler('play', togglePlay);
+                navigator.mediaSession.setActionHandler('pause', togglePlay);
+                navigator.mediaSession.setActionHandler('nexttrack', nextSong);
+                navigator.mediaSession.setActionHandler('previoustrack', prevSong);
+            }
 
             try {
                 fetchLyrics(t.artist, t.title);
@@ -256,17 +240,17 @@
                 audio.src = json.result.mp3;
                 audio.play();
                 updateIcons(true);
-            } catch (e) { alert("Gagal memuat audio."); nextSong(); }
+            } catch (e) { alert("Gagal unduh audio."); nextSong(); }
         }
 
         async function fetchLyrics(a, t) {
-            document.getElementById('lyricsContainer').innerHTML = "<p class='text-gray-600 text-sm mt-10 text-center'>Mencari lirik...</p>";
+            document.getElementById('lyricsContainer').innerHTML = "Mencari lirik...";
             try {
                 const cleanT = t.replace(/\(Official.*?\)|\[Official.*?\]/gi, '').trim();
                 const res = await fetch(`https://lrclib.net/api/search?q=${encodeURIComponent(a + ' ' + cleanT)}`);
                 const json = await res.json();
                 const match = json.find(i => i.syncedLyrics);
-                if(match) parseLRC(match.syncedLyrics); else document.getElementById('lyricsContainer').innerHTML = "<p class='text-gray-600 text-sm mt-10 text-center'>Lirik tidak ditemukan.</p>";
+                if(match) parseLRC(match.syncedLyrics); else document.getElementById('lyricsContainer').innerHTML = "Lirik gak ada.";
             } catch (e) { document.getElementById('lyricsContainer').innerHTML = ""; }
         }
 
@@ -285,8 +269,8 @@
                 document.getElementById('progressMini').style.width = pct + "%";
                 document.getElementById('fsSeek').value = pct;
                 const fmt = s => { const m=Math.floor(s/60),sec=Math.floor(s%60); return `${m}:${sec<10?'0':''}${sec}`; };
-                document.getElementById('timeFs').innerText = fmt(audio.currentTime);
-                document.getElementById('durFs').innerText = fmt(audio.duration);
+                document.getElementById('curTime').innerText = fmt(audio.currentTime);
+                document.getElementById('durTime').innerText = fmt(audio.duration);
                 
                 if(syncedLyrics.length > 0) {
                     let active = -1;
@@ -300,18 +284,15 @@
             }
         });
 
-        // --- KONTROL ---
         function togglePlay() { if(audio.paused) audio.play(); else audio.pause(); updateIcons(!audio.paused); }
         function updateIcons(p) { document.getElementById('playIconMini').className = p ? "fas fa-pause" : "fas fa-play"; document.getElementById('playIconFs').className = p ? "fas fa-pause" : "fas fa-play"; }
-        function nextSong() { playMusic(curIndex+1); }
-        function prevSong() { playMusic(curIndex-1); }
+        function nextSong() { let n = isShuffle ? Math.floor(Math.random()*queue.length) : curIndex+1; playMusic(n); }
+        function prevSong() { let n = curIndex-1; if(n < 0) n=queue.length-1; playMusic(n); }
         audio.addEventListener('ended', nextSong);
-        
         function seekInput() { isSeeking = true; }
         function seekChange(v) { isSeeking = false; audio.currentTime = (v/100)*audio.duration; }
         function seek(t) { audio.currentTime = t; }
         function toggleShuffle() { isShuffle = !isShuffle; document.getElementById('btnShuffle').style.color = isShuffle ? '#a855f7' : '#6b7280'; }
-        
         function switchPage(p) {
             ['Home', 'Search', 'Profile'].forEach(page => {
                 document.getElementById('page'+page).classList.add('hidden');
@@ -320,17 +301,8 @@
             document.getElementById('page'+p).classList.remove('hidden');
             document.getElementById('nav'+p).className = "flex flex-col items-center text-purple-500 cursor-pointer";
         }
-        function openFullscreen() { if(audio.src) document.getElementById('fsOverlay').classList.add('active'); }
+        function openFullscreen() { document.getElementById('fsOverlay').classList.add('active'); }
         function closeFullscreen() { document.getElementById('fsOverlay').classList.remove('active'); }
-        function updateMediaSession(t) {
-            if ('mediaSession' in navigator) {
-                navigator.mediaSession.metadata = new MediaMetadata({ title: t.title, artist: t.artist, artwork: [{ src: t.thumb, sizes: '512x512', type: 'image/jpeg' }] });
-                navigator.mediaSession.setActionHandler('play', togglePlay);
-                navigator.mediaSession.setActionHandler('pause', togglePlay);
-                navigator.mediaSession.setActionHandler('previoustrack', prevSong);
-                navigator.mediaSession.setActionHandler('nexttrack', nextSong);
-            }
-        }
     </script>
 </body>
 </html>
